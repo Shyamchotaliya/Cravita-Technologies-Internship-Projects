@@ -1,0 +1,4 @@
+# This command runs the backup script every day at 2:30 AM and logs all output.
+# To install, run `crontab -e` and add this line.
+
+30 2 * * * /bin/bash /home/ubuntu/scripts/backup.sh >> /home/ubuntu/scripts/backup.log 2>&1

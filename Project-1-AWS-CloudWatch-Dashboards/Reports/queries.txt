@@ -1,0 +1,48 @@
+======================================
+CloudWatch Log Insights Queries
+======================================
+
+-- Query 1: Search for Application Errors & Exceptions --
+-- Used in: Logs Dashboard -> "Recent Application Errors" widget
+-- Log Group: WebApp-Nginx-Errors
+
+fields @timestamp, @message
+| filter @message like /(?i)error|exception|fail/
+| sort @timestamp desc
+| limit 50
+
+
+-- Query 2: Search for Unauthorized API Calls --
+-- Used in: Security Dashboard -> "Recent Unauthorized API Activity" widget
+-- Log Group: My-CloudTrail-Logs
+
+fields @timestamp, eventName, awsRegion, sourceIPAddress, userIdentity.arn, errorMessage
+| filter errorCode like /(?i)AccessDenied|Unauthorized/
+| sort @timestamp desc
+| limit 20
+
+
+======================================
+CloudWatch Metric Filter Configuration
+======================================
+
+-- Used for: Logs Dashboard -> "Failed Login Attempts" widget
+-- Log Group: System-Security-Logs
+
+-- Filter Pattern:
+-- This pattern searches for common phrases in /var/log/secure on Linux.
+[mon, day, time, host, process, msg="Failed password for" OR msg="authentication failure"]
+
+-- The full filter configuration in JSON format:
+{
+    "filterName": "FailedLoginAttemptsFilter",
+    "filterPattern": "[mon, day, time, host, process, msg=\"Failed password for\" OR msg=\"authentication failure\"]",
+    "metricTransformations": [
+        {
+            "metricValue": "1",
+            "metricNamespace": "SecurityMetrics",
+            "metricName": "FailedLogins",
+            "defaultValue": 0
+        }
+    ]
+}

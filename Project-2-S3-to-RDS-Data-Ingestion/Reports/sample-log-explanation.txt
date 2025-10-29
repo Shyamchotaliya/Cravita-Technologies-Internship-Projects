@@ -1,0 +1,21 @@
+Sample VPC Flow Log Line:
+2 123456789012 eni-0a1b2c3d4e5f67890 10.0.1.25 8.8.8.8 54321 53 17 4 336 1668280000 1668280050 ACCEPT OK
+
+Explanation of Each Field:
+Field	      Sample Value	                         Description
+version       	2	                  The version of the VPC Flow Log format.
+account-id 	   123456789012	          The AWS Account ID of the VPC owner.
+interface-id  eni-0a1b2c3d4e5f67890	  The Elastic Network Interface (ENI) that the traffic was recorded on.
+srcaddr          10.0.1.25	          Source IP address (in this case, the private IP of my EC2 instance).
+dstaddr	          8.8.8.8	          Destination IP address (in this case, Google's public DNS server).
+srcport        	   54321	          The source port of the traffic.
+dstport	            53	              The destination port (port 53 is for DNS).
+protocol	        17	              The IANA protocol number (17 is UDP, 6 is TCP).
+packets   	        4	              The number of packets transferred during the capture window.
+bytes	           336	              The number of bytes transferred.
+start	        1668280000	          The Unix timestamp for the start of the capture window.
+end	            1668280050	          The Unix timestamp for the end of the capture window.
+action	          ACCEPT	          The action taken by security rules: ACCEPT or REJECT.
+log-status	        OK	              The status of the logging process. OK means the record is complete.
+		
+

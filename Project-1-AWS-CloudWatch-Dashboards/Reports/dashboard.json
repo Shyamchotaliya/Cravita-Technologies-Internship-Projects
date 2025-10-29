@@ -1,0 +1,325 @@
+{
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 1,
+      "properties": {
+        "markdown": "## 1. Billing and Cost Dashboard",
+        "background": "transparent"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 1,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "view": "singleValue",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/Billing",
+            "EstimatedCharges",
+            "Currency",
+            "USD",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ]
+        ],
+        "region": "us-east-1",
+        "title": "Total Estimated Charges"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 1,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "view": "bar",
+        "metrics": [
+          [
+            "AWS/Billing",
+            "EstimatedCharges",
+            "ServiceName",
+            "AmazonS3",
+            "Currency",
+            "USD",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ],
+          [
+            "...",
+            "AmazonEC2",
+            ".",
+            ".",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ],
+          [
+            "...",
+            "AmazonVPC",
+            ".",
+            ".",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ],
+          [
+            "...",
+            "AWSConfig",
+            ".",
+            ".",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ],
+          [
+            "...",
+            "AWSCloudTrail",
+            ".",
+            ".",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ],
+          [
+            "...",
+            "AWSELB",
+            ".",
+            ".",
+            {
+              "period": 21600,
+              "stat": "Maximum"
+            }
+          ]
+        ],
+        "region": "us-east-1",
+        "title": "Daily Cost by Service"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 1,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "metrics": [
+          [ "AWS/Billing", "EstimatedCharges", "Currency", "USD" ]
+        ],
+        "sparkline": true,
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "stat": "Maximum",
+        "period": 2592000,
+        "setPeriodToTimeRange": true,
+        "stacked": false,
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "title": "Current Month-to-Date Cost"
+      }
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 7,
+      "width": 24,
+      "height": 1,
+      "properties": {
+        "markdown": "## 2. Logs Dashboard",
+        "background": "transparent"
+      }
+    },
+    {
+      "type": "log",
+      "x": 0,
+      "y": 8,
+      "width": 15,
+      "height": 6,
+      "properties": {
+        "query": "SOURCE 'WebApp-Nginx-Errors' | fields @timestamp, @message\n| filter @message like /(?i)error|exception|fail/\n| sort @timestamp desc\n| limit 50",
+        "region": "us-east-1",
+        "stacked": false,
+        "view": "table"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 15,
+      "y": 8,
+      "width": 9,
+      "height": 6,
+      "properties": {
+        "view": "singleValue",
+        "stacked": false,
+        "metrics": [
+          [ "SecurityMetrics", "FailedLogins" ]
+        ],
+        "region": "us-east-1"
+      }
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 14,
+      "width": 24,
+      "height": 1,
+      "properties": {
+        "markdown": "## 3. Network Performance Dashboard",
+        "background": "transparent"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 15,
+      "width": 8,
+      "height": 7,
+      "properties": {
+        "view": "timeSeries",
+        "stacked": false,
+        "metrics": [
+          [
+            "AWS/EC2",
+            "NetworkIn",
+            "InstanceId",
+            "i-053a2bdd075e9ec9c",
+            { "region": "us-east-1" }
+          ],
+          [
+            ".",
+            "NetworkOut",
+            ".",
+            ".",
+            { "region": "us-east-1" }
+          ]
+        ],
+        "region": "us-east-1",
+        "period": 300,
+        "title": "EC2 Network In/Out"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16,
+      "y": 15,
+      "width": 8,
+      "height": 7,
+      "properties": {
+        "sparkline": true,
+        "view": "singleValue",
+        "metrics": [
+          [ "AWS/CloudFront", "BytesDownloaded", "Region", "Global", "DistributionId", "EKXKP5S2SUQGO" ]
+        ],
+        "region": "us-east-1",
+        "title": "BytesTransferred"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 15,
+      "width": 8,
+      "height": 7,
+      "properties": {
+        "view": "timeSeries",
+        "stacked": true,
+        "metrics": [
+          [ "AWS/ApplicationELB", "HTTPCode_ELB_5XX_Count", "LoadBalancer", "app/my-testing/544096f712ce3fd8" ],
+          [ ".", "RequestCount", ".", "." ],
+          [ ".", "TargetResponseTime", ".", "." ],
+          [ ".", "HTTPCode_ELB_4XX_Count", ".", "." ]
+        ],
+        "region": "us-east-1",
+        "title": "ELB Request Count & Errors"
+      }
+    },
+    {
+      "type": "text",
+      "x": 0,
+      "y": 22,
+      "width": 24,
+      "height": 1,
+      "properties": {
+        "markdown": "## 4. Security & Compliance Dashboard",
+        "background": "transparent"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 23,
+      "width": 4,
+      "height": 7,
+      "properties": {
+        "metrics": [
+          [
+            "Custom/GuardDuty",
+            "Severity_2",
+            { "label": "Findings" }
+          ]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "stat": "Average",
+        "period": 604800,
+        "title": "Active GuardDuty Findings"
+      }
+    },
+    {
+      "type": "log",
+      "x": 4,
+      "y": 23,
+      "width": 14,
+      "height": 7,
+      "properties": {
+        "query": "SOURCE 'aws-cloudtrail-logs-762233757034-04023c79' | SOURCE 'aws-cloudtrail-logs-762233757034-0d8a67ff' | SOURCE 'aws-cloudtrail-logs-762233757034-2290cbc2' | fields @timestamp, eventName, awsRegion, sourceIPAddress, userIdentity.arn, errorMessage\n| filter errorCode like /(?i)AccessDenied|Unauthorized/\n| sort @timestamp desc\n| limit 20",
+        "region": "us-east-1",
+        "stacked": false,
+        "view": "table",
+        "title": "ecent Unauthorized API Activity (CloudTrail)"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 18,
+      "y": 23,
+      "width": 6,
+      "height": 7,
+      "properties": {
+        "sparkline": true,
+        "view": "singleValue",
+        "metrics": [
+          [ "AWS/Config", "NonCompliantResources", "ConfigRuleName", "required-tags" ]
+        ],
+        "region": "us-east-1",
+        "title": "Non-Compliant Config Resources"
+      }
+    }
+  ]
+}

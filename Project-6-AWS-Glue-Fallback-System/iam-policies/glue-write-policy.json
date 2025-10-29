@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": [
+            "glue:CreateTable",
+            "glue:GetDatabase"
+        ],
+        "Resource": [
+            "arn:aws:glue:us-east-1:762233757034:catalog",
+            "arn:aws:glue:us-east-1:762233757034:database/student_data_fallback",
+            "arn:aws:glue:us-east-1:762233757034:table/student_data_fallback/*"
+        ]
+    }]
+}
